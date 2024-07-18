@@ -1,8 +1,3 @@
-<h2 align="center"><u>Repository-Readme-Generator</u></h2>
-
-![Generate beautiful Repository Readme](images/banner.png)
-<h4 align="center"> Generate beautiful Repository Readme </h4>
-
 <p align="center">
     <img src="https://img.shields.io/github/stars/pankajraut21/app-shopping-cart?style=for-the-badge&color=orange">
     <img src="https://img.shields.io/github/forks/pankajraut21/app-shopping-cart?style=for-the-badge&color=purple">
@@ -19,6 +14,4 @@
     <img src="https://github-readme-stats.vercel.app/api/pin/?username=pankajraut21&repo=app-shopping-cart&theme=synthwave">
 </p>
 
-### [+] Description
-Repository readme generator is a tool that allows you to create simple and beautiful readme for your repository that you can copy/paste/download.
-
+(https://github.com/pankajraut21/app-shopping-cart)
