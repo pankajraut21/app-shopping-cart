@@ -1,7 +1,3 @@
-# app-shopping-cart
-
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/pankajraut21/app-shopping-cart)
-
 <h2 align="center"><u>Repository-Readme-Generator</u></h2>
 
 ![Generate beautiful Repository Readme](images/banner.png)
