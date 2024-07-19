@@ -1,138 +1,119 @@
-<p align="center">
-    <img src="https://img.shields.io/github/stars/pankajraut21/app-shopping-cart?style=for-the-badge&color=orange">
-    <img src="https://img.shields.io/github/forks/pankajraut21/app-shopping-cart?style=for-the-badge&color=purple">
-    <img src="https://img.shields.io/github/license/pankajraut21/app-shopping-cart?style=for-the-badge&color=blue">
-    <img src="https://img.shields.io/github/issues/pankajraut21/app-shopping-cart?style=for-the-badge&color=red">
-    <img src="https://img.shields.io/github/contributors/pankajraut21/app-shopping-cart?style=for-the-badge&color=cyan">
-<br>
-    <img src="https://img.shields.io/badge/Author-Pankaj Raut-magenta?style=flat-square">
-    <img src="https://img.shields.io/badge/Open%20Source-Yes-orange?style=flat-square">
-    <img src="https://img.shields.io/badge/Maintained-Yes-cyan?style=flat-square">
-    <img src="https://img.shields.io/badge/Made%20In-India-green?style=flat-square">
-    <img src="https://img.shields.io/badge/Written%20In-Angular-blue?style=flat-square">
-<br>
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=pankajraut21&repo=app-shopping-cart&theme=synthwave">
-</p>
-
-(https://github.com/pankajraut21/app-shopping-cart)
-
-
-
-
-Certainly! Here’s a polished and organized version of your technical specifications:
-
 ---
 
-### Project Overview
+### Technical Specifications
 
 **Framework**: Angular 18
 
-### Core Files and Configuration
+---
+
+#### **1. Core Files**
 
 - **index.html**: Updated the application title to "Shopping Cart".
 
-- **main.ts**: Configures and provides Angular's `HttpClient` service for dependency injection throughout the application using `provideHttpClient()`.
+- **main.ts**: Configures Angular's `HttpClient` service using the `provideHttpClient()` function, making it available for dependency injection throughout the application.
 
-- **environments (folder)**: Contains environment-specific files with constants for API URLs (e.g., `https://dummyjson.com`).
-
-### Application Structure
-
-#### Root Folder: `app`
-
-- **AppComponent**: 
-  - Manages view state (shop or cart) and cart count using a `BehaviorSubject`.
-  - Handles view switching via click event bindings.
-  - Conditionally displays `app-shop` or `app-cart` components based on the current view.
-  - Uses `cartCount$` observable to asynchronously display the cart count.
-  
-- **HomeComponent**:
-  - Acts as a container for content projection, utilizing `ng-content` to project `app-shop` and `app-cart` components based on the current view.
-
-#### Pages Folder: `app/pages`
-
-- **HomeComponent**:
-  - Container component demonstrating content projection.
-
-#### Features Folder: `app/features`
-
-- **Cart Module**:
-  - **Components**: Contains the `CartComponent`.
-    - **Template**:
-      - Displays a "Cart" heading.
-      - Shows "Your cart is empty" when there are no items.
-      - Displays total price of items, formatted as currency.
-      - Contains a form for each cart item with fields for image, title, price, discount, and quantity.
-      
-    - **Class Properties**:
-      - `cartItems`: Array of items in the cart.
-      - `cartForm`: Form group for managing item quantities.
-      - `totalPrice$`: Observable for total price.
-      - `subscriptions`: Manages subscriptions to prevent memory leaks.
-      
-    - **Constructor**: Initializes `CartService`, `FormBuilder`, and sets up the form group.
-    
-    - **Lifecycle Hooks**:
-      - `ngOnInit()`: Loads cart items and subscribes to cart updates.
-      - `ngOnDestroy()`: Unsubscribes from all subscriptions.
-      
-    - **Methods**:
-      - `loadCart()`: Loads cart items and initializes form controls.
-      - `updateQuantity()`: Updates quantities in the cart service.
-      - `removeFromCart()`: Removes items from the cart and reloads.
-
-  - **Directives**:
-    - **IntegerOnlyDirective**: Restricts input to integer values.
-
-- **Product Module**:
-  - **Components**: Contains the `ShopComponent`.
-    - **Template**:
-      - Displays a "Shop" heading.
-      - Shows a "Loading products..." message while fetching data.
-      - Displays products with thumbnail, title, price, discount, and rating. Includes an "Add to Cart" button.
-      - Displays "No products available" if no products are found.
-      
-    - **Class Properties**:
-      - `products$`: Observable for product list.
-      
-    - **Constructor**: Injects `ProductService` and `CartService`.
-    
-    - **Lifecycle Hook**:
-      - `ngOnInit()`: Initializes `products$` observable with product data.
-      
-    - **Methods**:
-      - `addToCart()`: Adds selected products to the cart.
-      - `trackByFn()`: Optimizes rendering using product `id`.
-
-#### Core Folder: `app/core`
-
-- **Constants**:
-  - **API_ENDPOINTS**: Defines API URLs for product retrieval.
-
-- **Models**:
-  - **CartItem**: Interface extending `Product` with an additional `quantity` property.
-  - **Product**: Interface representing product data.
-
-- **Services**:
-  - **CartService**:
-    - Manages cart functionality with observables for cart count and total price.
-    - **Methods**:
-      - `addToCart(product)`: Adds or updates product in the cart.
-      - `removeFromCart(productId)`: Removes product from the cart.
-      - `updateCart(product)`: Updates product quantity.
-    - **Observables**:
-      - `cartCount$`: Total number of products in the cart.
-      - `totalPrice$`: Total price of cart items.
-
-  - **ProductService**:
-    - Fetches product data from a remote API.
-    - **API Configuration**:
-      - `apiUrl`: Base URL for API.
-      - `productsEndpoint`: Endpoint for fetching products.
-    - **HTTP Operations**:
-      - `getProducts()`: Fetches and returns product data.
-    - **Error Handling**:
-      - `handleError(error)`: Manages HTTP errors and returns empty data on failure.
+- **environments (folder)**: Contains environment-specific configuration files with constants for API URLs, such as `https://dummyjson.com`.
 
 ---
 
-This structure provides a clear overview of the project's architecture and functionality, organized by the primary components and services.
+#### **2. Application Structure**
+
+- **app (folder)**:
+  - **AppComponent**: Serves as the root component of the application.
+    - **View Management**: Controls the current view state (shop or cart) using a `BehaviorSubject`.
+    - **Content Projection**: Demonstrates content projection by conditionally displaying either `app-shop` or `app-cart` components based on the view state.
+    - **Cart Count**: Uses the `cartCount$` observable to asynchronously display the current number of items in the cart.
+    - **Navigation**: Uses click event bindings for view switching.
+
+  - **HomeComponent**:
+    - **Purpose**: Acts as a container component for content projection.
+    - **Content Projection**: Utilizes `ng-content` to dynamically project `app-shop` and `app-cart` components based on the active view.
+
+- **pages (folder)**:
+  - **HomeComponent**: Houses the `HomeComponent`, which manages content projection.
+
+---
+
+#### **3. Features**
+
+- **Cart Module** (`app/features/cart`):
+  - **Components**:
+    - **CartComponent**:
+      - **Template**:
+        - **Title**: Displays "Cart".
+        - **Empty Cart Message**: Shows "Your cart is empty" when no items are present.
+        - **Total Price**: Displays the total price of cart items formatted as currency, defaulting to "0.00" if no total price is available.
+        - **Cart Form**: Features a form for each cart item, including fields for image, title, price, discount, and quantity.
+      - **Class Properties**:
+        - `cartItems`: Array of items currently in the cart.
+        - `cartForm`: Form group for managing quantities of cart items.
+        - `totalPrice$`: Observable for the total price of items in the cart.
+        - `subscriptions`: Manages subscriptions to prevent memory leaks.
+      - **Constructor**: Initializes `CartService` and `FormBuilder`, setting up the form group.
+      - **Lifecycle Hooks**:
+        - `ngOnInit()`: Loads cart items and subscribes to updates.
+        - `ngOnDestroy()`: Unsubscribes from all active subscriptions.
+      - **Methods**:
+        - `loadCart()`: Loads items from `CartService` and initializes form controls for item quantities.
+        - `updateQuantity()`: Updates item quantities in the cart service when changed.
+        - `removeFromCart()`: Removes an item from the cart and reloads the cart items.
+
+    - **Directives**:
+      - **IntegerOnlyDirective**: Restricts input to integer values only.
+
+- **Product Module** (`app/features/product`):
+  - **Components**:
+    - **ShopComponent**:
+      - **Template**:
+        - **Title**: Displays "Shop".
+        - **Product List**:
+          - **Loading State**: Shows "Loading products..." while fetching data.
+          - **Product Display**:
+            - Displays each product with its thumbnail, title, price, discount, rating, and an "Add to Cart" button if available.
+            - Shows "No products available" if no products are found.
+        - **Track By Function**: Uses `trackByFn` to uniquely identify products by `id`, optimizing rendering performance.
+      - **Class Properties**:
+        - `products$`: Observable for fetching the list of products.
+      - **Constructor**: Injects `ProductService` for product data and `CartService` for cart management.
+      - **Lifecycle Hook**:
+        - `ngOnInit()`: Assigns the observable from `ProductService.getProducts()` to `products$`.
+      - **Methods**:
+        - `addToCart()`: Adds a selected product to the cart using `CartService`.
+        - `trackByFn()`: Improves rendering efficiency by tracking products by their `id`.
+
+---
+
+#### **4. Core Functionality** (`app/core`)
+
+- **Constants**:
+  - **API_ENDPOINTS**: Contains constants for API URLs used in fetching product data.
+
+- **Models**:
+  - **CartItem**: Interface extending `Product` with an additional `quantity` property.
+  - **Product**: Interface representing product data structure.
+
+- **Services**:
+  - **CartService**:
+    - **Purpose**: Manages shopping cart functionality, providing observables for cart count and total price.
+    - **Methods**:
+      - `addToCart(product: Product): void`: Adds a product to the cart, increasing its quantity if it already exists.
+      - `removeFromCart(productId: number): void`: Removes a product from the cart by its ID.
+      - `updateCart(product: CartItem): void`: Updates the quantity of an existing cart item.
+    - **Observables**:
+      - `cartCount$`: Observable for tracking the total number of items in the cart.
+      - `totalPrice$`: Observable for tracking the total price of cart items.
+    - **Internal Methods**:
+      - `updateCartCount()`: Updates the cart count based on total product quantity or unique product count.
+      - `updateTotalPrice()`: Calculates and updates the total price of the items in the cart.
+
+  - **ProductService**:
+    - **Purpose**: Fetches product data from a remote API.
+    - **API Configuration**:
+      - `apiUrl`: Base URL for the API.
+      - `productsEndpoint`: Endpoint for fetching product data.
+    - **HTTP Operations**:
+      - `getProducts(): Observable<Product[]>`: Retrieves a list of products, limited to 50 items. Returns an observable of product arrays, maps the response to extract data, and handles errors.
+    - **Error Handling**:
+      - `handleError(error: any): Observable<Product[]>`: Handles HTTP errors, displays an alert with the error message, and returns an empty array to ensure continued application functionality.
+
+---
