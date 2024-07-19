@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+
 import { CartService } from '../../services/cart.service';
 import { IntegerOnlyDirective } from '../../directives/integer-only.directive';
-import { Subscription } from 'rxjs';
 import { CartItem } from '../../../../core/models/cart-item.interface';
 
 @Component({
@@ -16,7 +17,7 @@ import { CartItem } from '../../../../core/models/cart-item.interface';
 export class CartComponent implements OnInit, OnDestroy {
   cartItems: CartItem[] = [];
   cartForm: FormGroup;
-  totalPrice$ = this.cartService.totalPrice$;
+  totalPrice$: Observable<number> | undefined;
 
   private subscriptions: Subscription = new Subscription();
 
@@ -25,6 +26,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.totalPrice$ = this.cartService.totalPrice$;
     this.loadCart();    
     const cartCountSubscription = this.cartService.cartCount$.subscribe(() => {
       this.loadCart();

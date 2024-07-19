@@ -38,11 +38,12 @@
 - **[Core (folder)](#core-folder)**: Contains essential application-wide functionality.
   - **[Constants (folder)](#constants)**: Defines constants for API endpoints.
   - **[Models (folder)](#models)**: Provides data models like `CartItem` and `Product`.
-  - **[Services (folder)](#services)**: Includes services such as `CartService` and `ProductService`.
 
 - **[Features (folder)](#features-folder)**: Contains feature-specific modules and components.
   - **[Cart Module](#cart-module)**: Manages cart-related functionality.
+    - **[Services (folder)](#services)**: Includes services such as `CartService`.
   - **[Product Module](#product-module)**: Handles product-related functionality.
+    - **[Services (folder)](#services)**: Includes services such as `ProductService`.
 
 - **[Pages (folder)](#pages-folder)**: Contains page-level components for content projection and layout.
   - **HomeComponent**: Acts as a container for projecting other components.
@@ -92,8 +93,21 @@
         - `loadCart()`: Loads items from `CartService` and initializes form controls for item quantities.
         - `updateQuantity()`: Updates item quantities in the cart service when changed.
         - `removeFromCart()`: Removes an item from the cart and reloads the cart items.
-    - **[Directives](#cart-module-directives)**:
-      - **IntegerOnlyDirective**: Restricts input to integer values only, cart component uses this with minimum quantity value `1`
+  - **[Directives](#cart-module-directives)**:
+      - **IntegerOnlyDirective**: Restricts input to integer values only, cart component uses this with minimum quantity value `1`.
+  - **[Services](#services)**:
+    - **[CartService](#cartservice)**:
+      - **Purpose**: Manages shopping cart functionality, providing observables for cart count and total price.
+      - **Methods**:
+        - `addToCart(product: Product): void`: Adds a product to the cart, increasing its quantity if it already exists.
+        - `removeFromCart(productId: number): void`: Removes a product from the cart by its ID.
+        - `updateCart(product: CartItem): void`: Updates the quantity of an existing cart item.
+      - **Observables**:
+        - `cartCount$`: Observable for tracking the total number of items in the cart.
+        - `totalPrice$`: Observable for tracking the total price of cart items.
+      - **Internal Methods**:
+        - `updateCartCount()`: Updates the cart count based on total product quantity or unique product count.
+        - `updateTotalPrice()`: Calculates and updates the total price of the items in the cart.
 
   - **[Product Module](#product-module)** (`app/features/product`):
     - **[Components](#product-module-components)**:
@@ -114,6 +128,17 @@
         - **Methods**:
           - `addToCart()`: Adds a selected product to the cart using `CartService`.
           - `trackByFn()`: Improves rendering efficiency by tracking products by their `id`.
+    - **[Services](#services)**:
+      - **[ProductService](#productservice)**:
+        - **Purpose**: Fetches product data from a remote API.
+        - **API Configuration**:
+          - `apiUrl`: Base URL for the API.
+          - `productsEndpoint`: Endpoint for fetching product data.
+        - **HTTP Operations**:
+          - `getProducts(): Observable<Product[]>`: Retrieves a list of products, limited to 50 items. Returns an observable of product arrays, maps the response to extract data, and handles errors.
+        - **Error Handling**:
+          - `handleError(error: any): Observable<Product[]>`: Handles HTTP errors, displays an alert with the error message, and returns an empty array to ensure continued application functionality.
+
 
 #### [Core Functionality](#core-functionality)
 
@@ -124,27 +149,6 @@
   - **CartItem**: Interface extending `Product` with an additional `quantity` property.
   - **Product**: Interface representing product data structure.
 
-- **[Services](#services)**:
-  - **[CartService](#cartservice)**:
-    - **Purpose**: Manages shopping cart functionality, providing observables for cart count and total price.
-    - **Methods**:
-      - `addToCart(product: Product): void`: Adds a product to the cart, increasing its quantity if it already exists.
-      - `removeFromCart(productId: number): void`: Removes a product from the cart by its ID.
-      - `updateCart(product: CartItem): void`: Updates the quantity of an existing cart item.
-    - **Observables**:
-      - `cartCount$`: Observable for tracking the total number of items in the cart.
-      - `totalPrice$`: Observable for tracking the total price of cart items.
-    - **Internal Methods**:
-      - `updateCartCount()`: Updates the cart count based on total product quantity or unique product count.
-      - `updateTotalPrice()`: Calculates and updates the total price of the items in the cart.
 
-  - **[ProductService](#productservice)**:
-    - **Purpose**: Fetches product data from a remote API.
-    - **API Configuration**:
-      - `apiUrl`: Base URL for the API.
-      - `productsEndpoint`: Endpoint for fetching product data.
-    - **HTTP Operations**:
-      - `getProducts(): Observable<Product[]>`: Retrieves a list of products, limited to 50 items. Returns an observable of product arrays, maps the response to extract data, and handles errors.
-    - **Error Handling**:
-      - `handleError(error: any): Observable<Product[]>`: Handles HTTP errors, displays an alert with the error message, and returns an empty array to ensure continued application functionality.
+
 
