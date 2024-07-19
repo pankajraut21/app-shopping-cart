@@ -9,7 +9,8 @@
     - [Core (folder)](#core-folder)
     - [Features (folder)](#features-folder)
     - [Pages (folder)](#pages-folder)
-3. [Features](#features)
+3. [Components](#components)
+    - [AppComponent](#appcomponent)
     - [Cart Module](#cart-module)
         - [Components](#cart-module-components)
         - [Directives](#cart-module-directives)
@@ -46,7 +47,28 @@
 - **[Pages (folder)](#pages-folder)**: Contains page-level components for content projection and layout.
   - **HomeComponent**: Acts as a container for projecting other components.
 
-#### [Features](#features)
+#### [Components](#components)
+
+- **[AppComponent](#appcomponent)** (`app` folder):
+  - **Description**: The root component of the application.
+  - **Purpose**:
+    - Manages the current view state (shop or cart) using a `BehaviorSubject`.
+    - Handles cart count using an observable (`cartCount$`).
+    - Uses click event bindings to switch views between `app-shop` and `app-cart` components.
+    - Conditionally displays the `app-shop` or `app-cart` component based on the current view.
+    - Projects content using Angular's content projection (`ng-content`).
+  - **Component Structure**:
+    - **HTML Template**:
+      - **Title**: Displays the application title.
+      - **Navigation**: Uses a navigation bar with buttons to switch between views.
+      - **Content Projection**: Includes content projection using `ng-content` to display either `app-shop` or `app-cart` based on the view state.
+    - **TypeScript Code**:
+      - **Class Properties**:
+        - `currentView`: Tracks the current view state (shop or cart).
+        - `cartCount$`: Observable for the cart count.
+      - **Constructor**: Initializes services and sets up view management.
+      - **Methods**:
+        - `switchView(view: string)`: Switches the current view based on user interaction.
 
 - **[Cart Module](#cart-module)** (`app/features/cart`):
   - **[Components](#cart-module-components)**:
@@ -125,4 +147,3 @@
     - **Error Handling**:
       - `handleError(error: any): Observable<Product[]>`: Handles HTTP errors, displays an alert with the error message, and returns an empty array to ensure continued application functionality.
 
----
