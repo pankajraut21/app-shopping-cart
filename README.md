@@ -1,4 +1,6 @@
 
+---
+
 ### Technical Specifications
 
 **Framework**: Angular 18
@@ -31,6 +33,7 @@
 - **pages (folder)**:
   - **HomeComponent**: Houses the `HomeComponent`, which manages content projection.
 
+---
 
 #### **3. Features**
 
@@ -79,7 +82,7 @@
         - `addToCart()`: Adds a selected product to the cart using `CartService`.
         - `trackByFn()`: Improves rendering efficiency by tracking products by their `id`.
 
-
+---
 
 #### **4. Core Functionality** (`app/core`)
 
@@ -114,4 +117,4 @@
     - **Error Handling**:
       - `handleError(error: any): Observable<Product[]>`: Handles HTTP errors, displays an alert with the error message, and returns an empty array to ensure continued application functionality.
 
-
+---
