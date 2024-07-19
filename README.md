@@ -64,7 +64,7 @@
       - **Content Projection**: Includes content projection using `ng-content` to display either `app-shop` or `app-cart` based on the view state.
     - **TypeScript Code**:
       - **Class Properties**:
-        - `currentView`: Tracks the current view state (shop or cart).
+        - `view`: Tracks the current view state (shop or cart).
         - `cartCount$`: Observable for the cart count.
       - **Constructor**: Initializes services and sets up view management.
       - **Methods**:
@@ -86,14 +86,14 @@
         - `subscriptions`: Manages subscriptions to prevent memory leaks.
       - **Constructor**: Initializes `CartService` and `FormBuilder`, setting up the form group.
       - **Lifecycle Hooks**:
-        - `ngOnInit()`: Loads cart items and subscribes to updates.
+        - `ngOnInit()`: Loads cart items, `totalPrice$`: Observable for fetching the total price. and subscribes to updates.
         - `ngOnDestroy()`: Unsubscribes from all active subscriptions.
       - **Methods**:
         - `loadCart()`: Loads items from `CartService` and initializes form controls for item quantities.
         - `updateQuantity()`: Updates item quantities in the cart service when changed.
         - `removeFromCart()`: Removes an item from the cart and reloads the cart items.
     - **[Directives](#cart-module-directives)**:
-      - **IntegerOnlyDirective**: Restricts input to integer values only.
+      - **IntegerOnlyDirective**: Restricts input to integer values only, cart component uses this with minimum quantity value `1`
 
   - **[Product Module](#product-module)** (`app/features/product`):
     - **[Components](#product-module-components)**:
@@ -103,7 +103,7 @@
           - **Product List**:
             - **Loading State**: Shows "Loading products..." while fetching data.
             - **Product Display**:
-              - Displays each product with its thumbnail, title, price, discount, rating, and an "Add to Cart" button if available.
+              - Displays each product with its thumbnail, title, price, discount badge, rating, and an "Add to Cart" button if available.
               - Shows "No products available" if no products are found.
           - **Track By Function**: Uses `trackByFn` to uniquely identify products by `id`, optimizing rendering performance.
         - **Class Properties**:
