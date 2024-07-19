@@ -1,14 +1,14 @@
----
 
 ### [Technical Specifications](#technical-specifications)
 
 1. [Core Files](#core-files)
     - [index.html](#indexhtml)
     - [main.ts](#maints)
-    - [environments (folder)](#environments-folder)
+    - [Environments (folder)](#environments-folder)
 2. [Application Structure](#application-structure)
-    - [app (folder)](#app-folder)
-    - [pages (folder)](#pages-folder)
+    - [Core (folder)](#core-folder)
+    - [Features (folder)](#features-folder)
+    - [Pages (folder)](#pages-folder)
 3. [Features](#features)
     - [Cart Module](#cart-module)
         - [Components](#cart-module-components)
@@ -30,20 +30,21 @@
 
 - **[index.html](#indexhtml)**: Updated the application title to "Shopping Cart".
 - **[main.ts](#maints)**: Configures Angular's `HttpClient` service using the `provideHttpClient()` function, making it available for dependency injection throughout the application.
-- **[environments (folder)](#environments-folder)**: Contains environment-specific configuration files with constants for API URLs, such as `https://dummyjson.com`.
+- **[Environments (folder)](#environments-folder)**: Contains environment-specific configuration files with constants for API URLs, such as `https://dummyjson.com`.
 
 #### [Application Structure](#application-structure)
 
-- **[app (folder)](#app-folder)**:
-  - **AppComponent**: Serves as the root component of the application.
-    - **View Management**: Controls the current view state (shop or cart) using a `BehaviorSubject`.
-    - **Content Projection**: Demonstrates content projection by conditionally displaying either `app-shop` or `app-cart` components based on the view state.
-    - **Cart Count**: Uses the `cartCount$` observable to asynchronously display the current number of items in the cart.
-    - **Navigation**: Uses click event bindings for view switching.
-  - **HomeComponent**: Acts as a container component for content projection, utilizing `ng-content` to dynamically project `app-shop` and `app-cart` components based on the active view.
+- **[Core (folder)](#core-folder)**: Contains essential application-wide functionality.
+  - **[Constants (folder)](#constants)**: Defines constants for API endpoints.
+  - **[Models (folder)](#models)**: Provides data models like `CartItem` and `Product`.
+  - **[Services (folder)](#services)**: Includes services such as `CartService` and `ProductService`.
 
-- **[pages (folder)](#pages-folder)**:
-  - **HomeComponent**: Houses the `HomeComponent`, which manages content projection.
+- **[Features (folder)](#features-folder)**: Contains feature-specific modules and components.
+  - **[Cart Module](#cart-module)**: Manages cart-related functionality.
+  - **[Product Module](#product-module)**: Handles product-related functionality.
+
+- **[Pages (folder)](#pages-folder)**: Contains page-level components for content projection and layout.
+  - **HomeComponent**: Acts as a container for projecting other components.
 
 #### [Features](#features)
 
