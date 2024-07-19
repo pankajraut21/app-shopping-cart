@@ -68,7 +68,8 @@
         - `cartCount$`: Observable for the cart count.
       - **Constructor**: Initializes services and sets up view management.
       - **Methods**:
-        - `switchView(view: string)`: Switches the current view based on user interaction.
+        - `displayShop(): void`: Set the current view to `shop` and displays `shop`.
+        - `displayCart(): void`: Set the current view to `cart` and displays `cart`.
 
 - **[Cart Module](#cart-module)** (`app/features/cart`):
   - **[Components](#cart-module-components)**:
