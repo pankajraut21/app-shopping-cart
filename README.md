@@ -1,44 +1,54 @@
+---
+
+### [Technical Specifications](#technical-specifications)
+
+1. [Core Files](#core-files)
+    - [index.html](#indexhtml)
+    - [main.ts](#maints)
+    - [environments (folder)](#environments-folder)
+2. [Application Structure](#application-structure)
+    - [app (folder)](#app-folder)
+    - [pages (folder)](#pages-folder)
+3. [Features](#features)
+    - [Cart Module](#cart-module)
+        - [Components](#cart-module-components)
+        - [Directives](#cart-module-directives)
+    - [Product Module](#product-module)
+        - [Components](#product-module-components)
+4. [Core Functionality](#core-functionality)
+    - [Constants](#constants)
+    - [Models](#models)
+    - [Services](#services)
+        - [CartService](#cartservice)
+        - [ProductService](#productservice)
 
 ---
 
 ### Technical Specifications
 
-**Framework**: Angular 18
+#### [Core Files](#core-files)
 
----
+- **[index.html](#indexhtml)**: Updated the application title to "Shopping Cart".
+- **[main.ts](#maints)**: Configures Angular's `HttpClient` service using the `provideHttpClient()` function, making it available for dependency injection throughout the application.
+- **[environments (folder)](#environments-folder)**: Contains environment-specific configuration files with constants for API URLs, such as `https://dummyjson.com`.
 
-#### **1. Core Files**
+#### [Application Structure](#application-structure)
 
-- **index.html**: Updated the application title to "Shopping Cart".
-
-- **main.ts**: Configures Angular's `HttpClient` service using the `provideHttpClient()` function, making it available for dependency injection throughout the application.
-
-- **environments (folder)**: Contains environment-specific configuration files with constants for API URLs, such as `https://dummyjson.com`.
-
----
-
-#### **2. Application Structure**
-
-- **app (folder)**:
+- **[app (folder)](#app-folder)**:
   - **AppComponent**: Serves as the root component of the application.
     - **View Management**: Controls the current view state (shop or cart) using a `BehaviorSubject`.
     - **Content Projection**: Demonstrates content projection by conditionally displaying either `app-shop` or `app-cart` components based on the view state.
     - **Cart Count**: Uses the `cartCount$` observable to asynchronously display the current number of items in the cart.
     - **Navigation**: Uses click event bindings for view switching.
+  - **HomeComponent**: Acts as a container component for content projection, utilizing `ng-content` to dynamically project `app-shop` and `app-cart` components based on the active view.
 
-  - **HomeComponent**:
-    - **Purpose**: Acts as a container component for content projection.
-    - **Content Projection**: Utilizes `ng-content` to dynamically project `app-shop` and `app-cart` components based on the active view.
-
-- **pages (folder)**:
+- **[pages (folder)](#pages-folder)**:
   - **HomeComponent**: Houses the `HomeComponent`, which manages content projection.
 
----
+#### [Features](#features)
 
-#### **3. Features**
-
-- **Cart Module** (`app/features/cart`):
-  - **Components**:
+- **[Cart Module](#cart-module)** (`app/features/cart`):
+  - **[Components](#cart-module-components)**:
     - **CartComponent**:
       - **Template**:
         - **Title**: Displays "Cart".
@@ -58,43 +68,40 @@
         - `loadCart()`: Loads items from `CartService` and initializes form controls for item quantities.
         - `updateQuantity()`: Updates item quantities in the cart service when changed.
         - `removeFromCart()`: Removes an item from the cart and reloads the cart items.
-
-    - **Directives**:
+    - **[Directives](#cart-module-directives)**:
       - **IntegerOnlyDirective**: Restricts input to integer values only.
 
-- **Product Module** (`app/features/product`):
-  - **Components**:
-    - **ShopComponent**:
-      - **Template**:
-        - **Title**: Displays "Shop".
-        - **Product List**:
-          - **Loading State**: Shows "Loading products..." while fetching data.
-          - **Product Display**:
-            - Displays each product with its thumbnail, title, price, discount, rating, and an "Add to Cart" button if available.
-            - Shows "No products available" if no products are found.
-        - **Track By Function**: Uses `trackByFn` to uniquely identify products by `id`, optimizing rendering performance.
-      - **Class Properties**:
-        - `products$`: Observable for fetching the list of products.
-      - **Constructor**: Injects `ProductService` for product data and `CartService` for cart management.
-      - **Lifecycle Hook**:
-        - `ngOnInit()`: Assigns the observable from `ProductService.getProducts()` to `products$`.
-      - **Methods**:
-        - `addToCart()`: Adds a selected product to the cart using `CartService`.
-        - `trackByFn()`: Improves rendering efficiency by tracking products by their `id`.
+  - **[Product Module](#product-module)** (`app/features/product`):
+    - **[Components](#product-module-components)**:
+      - **ShopComponent**:
+        - **Template**:
+          - **Title**: Displays "Shop".
+          - **Product List**:
+            - **Loading State**: Shows "Loading products..." while fetching data.
+            - **Product Display**:
+              - Displays each product with its thumbnail, title, price, discount, rating, and an "Add to Cart" button if available.
+              - Shows "No products available" if no products are found.
+          - **Track By Function**: Uses `trackByFn` to uniquely identify products by `id`, optimizing rendering performance.
+        - **Class Properties**:
+          - `products$`: Observable for fetching the list of products.
+        - **Constructor**: Injects `ProductService` for product data and `CartService` for cart management.
+        - **Lifecycle Hook**:
+          - `ngOnInit()`: Assigns the observable from `ProductService.getProducts()` to `products$`.
+        - **Methods**:
+          - `addToCart()`: Adds a selected product to the cart using `CartService`.
+          - `trackByFn()`: Improves rendering efficiency by tracking products by their `id`.
 
----
+#### [Core Functionality](#core-functionality)
 
-#### **4. Core Functionality** (`app/core`)
-
-- **Constants**:
+- **[Constants](#constants)**:
   - **API_ENDPOINTS**: Contains constants for API URLs used in fetching product data.
 
-- **Models**:
+- **[Models](#models)**:
   - **CartItem**: Interface extending `Product` with an additional `quantity` property.
   - **Product**: Interface representing product data structure.
 
-- **Services**:
-  - **CartService**:
+- **[Services](#services)**:
+  - **[CartService](#cartservice)**:
     - **Purpose**: Manages shopping cart functionality, providing observables for cart count and total price.
     - **Methods**:
       - `addToCart(product: Product): void`: Adds a product to the cart, increasing its quantity if it already exists.
@@ -107,7 +114,7 @@
       - `updateCartCount()`: Updates the cart count based on total product quantity or unique product count.
       - `updateTotalPrice()`: Calculates and updates the total price of the items in the cart.
 
-  - **ProductService**:
+  - **[ProductService](#productservice)**:
     - **Purpose**: Fetches product data from a remote API.
     - **API Configuration**:
       - `apiUrl`: Base URL for the API.
