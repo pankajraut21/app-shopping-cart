@@ -4,24 +4,23 @@
 1. [Core Files](#core-files)
     - [index.html](#indexhtml)
     - [main.ts](#maints)
-    - [Environments (folder)](#environments-folder)
+    - [Environments](#environments-folder)
 2. [Application Structure](#application-structure)
-    - [Core (folder)](#core-folder)
-    - [Features (folder)](#features-folder)
-    - [Pages (folder)](#pages-folder)
-3. [Components](#components)
+    - [Core](#core-folder)
+    - [Features](#features-folder)
+    - [Pages](#pages-folder)
+3. [Modules](#modules)
     - [AppComponent](#appcomponent)
     - [Cart Module](#cart-module)
         - [Components](#cart-module-components)
         - [Directives](#cart-module-directives)
+        - [Services](#cart-module-services)
     - [Product Module](#product-module)
         - [Components](#product-module-components)
+        - [Services](#product-module-services)
 4. [Core Functionality](#core-functionality)
     - [Constants](#constants)
     - [Models](#models)
-    - [Services](#services)
-        - [CartService](#cartservice)
-        - [ProductService](#productservice)
 
 ---
 
@@ -31,24 +30,24 @@
 
 - **[index.html](#indexhtml)**: Updated the application title to "Shopping Cart".
 - **[main.ts](#maints)**: Configures Angular's `HttpClient` service using the `provideHttpClient()` function, making it available for dependency injection throughout the application.
-- **[Environments (folder)](#environments-folder)**: Contains environment-specific configuration files with constants for API URLs, such as `https://dummyjson.com`.
+- **[Environments](#environments-folder)**: Contains environment-specific configuration files with constants for API URLs, such as `https://dummyjson.com`.
 
 #### [Application Structure](#application-structure)
 
-- **[Core (folder)](#core-folder)**: Contains essential application-wide functionality.
-  - **[Constants (folder)](#constants)**: Defines constants for API endpoints.
-  - **[Models (folder)](#models)**: Provides data models like `CartItem` and `Product`.
+- **[Core](#core-folder)**: Contains essential application-wide functionality.
+  - **[Constants](#constants)**: Defines constants for API endpoints.
+  - **[Models](#models)**: Provides data models like `CartItem` and `Product`.
 
-- **[Features (folder)](#features-folder)**: Contains feature-specific modules and components.
+- **[Features](#features-folder)**: Contains feature-specific modules and components.
   - **[Cart Module](#cart-module)**: Manages cart-related functionality.
-    - **[Services (folder)](#services)**: Includes services such as `CartService`.
+    - **[Services](#services)**: Includes services such as `CartService`.
   - **[Product Module](#product-module)**: Handles product-related functionality.
-    - **[Services (folder)](#services)**: Includes services such as `ProductService`.
+    - **[Services](#services)**: Includes services such as `ProductService`.
 
-- **[Pages (folder)](#pages-folder)**: Contains page-level components for content projection and layout.
+- **[Pages](#pages-folder)**: Contains page-level components for content projection and layout.
   - **HomeComponent**: Acts as a container for projecting other components.
 
-#### [Components](#components)
+#### [Modules](#modules)
 
 - **[AppComponent](#appcomponent)** (`app` folder):
   - **Description**: The root component of the application.
@@ -95,8 +94,8 @@
         - `removeFromCart()`: Removes an item from the cart and reloads the cart items.
   - **[Directives](#cart-module-directives)**:
       - **IntegerOnlyDirective**: Restricts input to integer values only, cart component uses this with minimum quantity value `1`.
-  - **[Services](#services)**:
-    - **[CartService](#cartservice)**:
+  - **[Services](#cart-module-services)**:
+    - **[CartService](#cartService)**:
       - **Purpose**: Manages shopping cart functionality, providing observables for cart count and total price.
       - **Methods**:
         - `addToCart(product: Product): void`: Adds a product to the cart, increasing its quantity if it already exists.
@@ -109,35 +108,35 @@
         - `updateCartCount()`: Updates the cart count based on total product quantity or unique product count.
         - `updateTotalPrice()`: Calculates and updates the total price of the items in the cart.
 
-  - **[Product Module](#product-module)** (`app/features/product`):
-    - **[Components](#product-module-components)**:
-      - **ShopComponent**:
-        - **Template**:
-          - **Title**: Displays "Shop".
-          - **Product List**:
-            - **Loading State**: Shows "Loading products..." while fetching data.
-            - **Product Display**:
-              - Displays each product with its thumbnail, title, price, discount badge, rating, and an "Add to Cart" button if available.
-              - Shows "No products available" if no products are found.
-          - **Track By Function**: Uses `trackByFn` to uniquely identify products by `id`, optimizing rendering performance.
-        - **Class Properties**:
-          - `products$`: Observable for fetching the list of products.
-        - **Constructor**: Injects `ProductService` for product data and `CartService` for cart management.
-        - **Lifecycle Hook**:
-          - `ngOnInit()`: Assigns the observable from `ProductService.getProducts()` to `products$`.
-        - **Methods**:
-          - `addToCart()`: Adds a selected product to the cart using `CartService`.
-          - `trackByFn()`: Improves rendering efficiency by tracking products by their `id`.
-    - **[Services](#services)**:
-      - **[ProductService](#productservice)**:
-        - **Purpose**: Fetches product data from a remote API.
-        - **API Configuration**:
-          - `apiUrl`: Base URL for the API.
-          - `productsEndpoint`: Endpoint for fetching product data.
-        - **HTTP Operations**:
-          - `getProducts(): Observable<Product[]>`: Retrieves a list of products, limited to 50 items. Returns an observable of product arrays, maps the response to extract data, and handles errors.
-        - **Error Handling**:
-          - `handleError(error: any): Observable<Product[]>`: Handles HTTP errors, displays an alert with the error message, and returns an empty array to ensure continued application functionality.
+- **[Product Module](#product-module)** (`app/features/product`):
+  - **[Components](#product-module-components)**:
+    - **ShopComponent**:
+      - **Template**:
+        - **Title**: Displays "Shop".
+        - **Product List**:
+          - **Loading State**: Shows "Loading products..." while fetching data.
+          - **Product Display**:
+            - Displays each product with its thumbnail, title, price, discount badge, rating, and an "Add to Cart" button if available.
+            - Shows "No products available" if no products are found.
+        - **Track By Function**: Uses `trackByFn` to uniquely identify products by `id`, optimizing rendering performance.
+      - **Class Properties**:
+        - `products$`: Observable for fetching the list of products.
+      - **Constructor**: Injects `ProductService` for product data and `CartService` for cart management.
+      - **Lifecycle Hook**:
+        - `ngOnInit()`: Assigns the observable from `ProductService.getProducts()` to `products$`.
+      - **Methods**:
+        - `addToCart()`: Adds a selected product to the cart using `CartService`.
+        - `trackByFn()`: Improves rendering efficiency by tracking products by their `id`.
+  - **[Services](#product-module-services)**:
+    - **[ProductService](#productservice)**:
+      - **Purpose**: Fetches product data from a remote API.
+      - **API Configuration**:
+        - `apiUrl`: Base URL for the API.
+        - `productsEndpoint`: Endpoint for fetching product data.
+      - **HTTP Operations**:
+        - `getProducts(): Observable<Product[]>`: Retrieves a list of products, limited to 50 items. Returns an observable of product arrays, maps the response to extract data, and handles errors.
+      - **Error Handling**:
+        - `handleError(error: any): Observable<Product[]>`: Handles HTTP errors, displays an alert with the error message, and returns an empty array to ensure continued application functionality.
 
 
 #### [Core Functionality](#core-functionality)
